@@ -36,11 +36,13 @@ class App extends Component {
                     <WebsiteOutput ads={this.state && this.state.selected ? this.state.selected : []} />
                   </div>
                 </div>
+            {/* TODO - allow configuration of user information
               <div className="row">
                 <div className="col">
                   <VisitorData />
                 </div>
               </div>
+            */}
               <div className="row">
                 <div className="col">
                   <Description />
