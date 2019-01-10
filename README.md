@@ -1,5 +1,10 @@
 # Example for ImperfectHuman/rule-based-system
 
+Project mimicking the calculation of which adverts should appear on a website,
+using a rule-based system, such as could be configured by a marketing team
+to adjust the site's advertising strategy without requiring code changes.
+
+
 ## Main Purpose
 
 To demonstrate a way you could use a [Rule-based system](https://github.com/ImperfectHuman/rule-based-system).
