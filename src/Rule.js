@@ -6,9 +6,9 @@ class Rule extends Component {
 
     let description = <div></div>;
     if (rule.action === "ADDONE") {
-        description = <div>Add one advert from the <em>{rule.actionConfig.category}</em> category
+        description = <div>Add one advert from the <strong>{rule.actionConfig.category}</strong> category
                    if one is available and there aren't already at
-                   least <em>{rule.actionConfig.upTo}</em> ads from that
+                   least <strong>{rule.actionConfig.upTo}</strong> ads from that
                    category present.</div>
     }
 
@@ -18,15 +18,10 @@ class Rule extends Component {
   render() {
     const rule = this.props.rule;
     return (
-      <div className="Rule">
-        <div className="container">
-          <div className="row border border-dark">
-            <div className="col-3"><span className="badge badge-secondary">Priority {rule.priority}</span>
-              {rule.tiebreakweight && rule.tiebreakweight > 1 ? <span className="badge badge-info">{rule.tiebreakweight}x tiebreak chance</span> : ""}
-            </div>
-            <div className="col">{this.getActionDescription(this.props.rule)}</div>
-          </div>
-        </div>
+      <div className="Rule border border-dark">
+            <span className="badge badge-secondary">Priority {rule.priority}</span>
+            {rule.tiebreakweight && rule.tiebreakweight > 1 ? <span className="badge badge-info">{rule.tiebreakweight}x tiebreak chance</span> : ""}
+            {this.getActionDescription(this.props.rule)}
       </div>
     );
   }
