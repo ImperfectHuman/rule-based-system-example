@@ -6,28 +6,28 @@ import VisitorData from './VisitorData';
 import WebsiteOutput from './WebsiteOutput';
 import Description from './Description';
 
-import Rules from './data/rules';
+import KnowledgeBase from './data/myKnowledgeBase';
+import myActionLibrary from './actions/myActionLibrary';
+import Ads from './data/ads';
+import tiebreaker from './tiebreaker';
+import orchestrator from 'rule-based-system/orchestrator';
 
 class App extends Component {
+
+  componentDidMount() {
+    const currentAds = JSON.parse(JSON.stringify(Ads));
+    const initialState = { pool: currentAds, selected: [] };
+    orchestrator(initialState, KnowledgeBase, myActionLibrary, {tiebreaker})
+      .then(result => this.setState(result));
+  }
+
   render() {
-
-    const ads = [
-      { label: "No Ad #1", id: "NoAd1" },
-      { label: "No Ad #2", id: "NoAd2" },
-      { label: "No Ad #3", id: "NoAd3" },
-      { label: "No Ad #4", id: "NoAd4" },
-      { label: "No Ad #5", id: "NoAd5" },
-      { label: "No Ad #6", id: "NoAd6" },
-      { label: "No Ad #7", id: "NoAd7" },
-      { label: "No Ad #8", id: "NoAd8" }
-    ];
-
     return (
       <div className="App">
         <div className="container">
           <div className="row">
             <div className="col">
-              <RulesDisplay rules={Rules} />
+              <RulesDisplay rules={KnowledgeBase.rules} />
             </div>
             <div className="col">
               <VisitorData />
@@ -35,7 +35,7 @@ class App extends Component {
           </div>
           <div className="row">
             <div className="col">
-              <WebsiteOutput ads={ads} />
+              <WebsiteOutput ads={this.state && this.state.selected ? this.state.selected : []} />
             </div>
             <div className="col">
               <Description />

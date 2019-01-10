@@ -1,10 +1,10 @@
 import Categories from './categories';
 
-var Rules = [ ];
+var rules = [ ];
 
 let priority = 1;
 
-Rules = Rules.concat(Categories.map(category => {
+rules = rules.concat(Categories.map(category => {
   return {
           priority,
           action: "ADDONE",
@@ -16,4 +16,6 @@ Rules = Rules.concat(Categories.map(category => {
         };
 }));
 
-export default Rules;
+const KnowledgeBase = { rules };
+
+export default KnowledgeBase;

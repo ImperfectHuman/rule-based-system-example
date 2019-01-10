@@ -12,21 +12,18 @@ class Rule extends Component {
                    category present.</div>
     }
 
-    let weight = <div></div>
-    if (rule.tiebreakweight && rule.tiebreakweight > 1) {
-      weight = <div>This rule is <em>{rule.tiebreakweight}</em> times as
-                  likely as normal to be picked during tiebreaks of rules of the
-                  same priority.</div>
-    }
-    return <div>{description}{weight}</div>;
+    return description;
   }
 
   render() {
+    const rule = this.props.rule;
     return (
       <div className="Rule">
         <div className="container">
-          <div className="row">
-            <div className="col-3">Priority {this.props.rule.priority}</div>
+          <div className="row border border-dark">
+            <div className="col-3"><span className="badge badge-secondary">Priority {rule.priority}</span>
+              {rule.tiebreakweight && rule.tiebreakweight > 1 ? <span className="badge badge-info">{rule.tiebreakweight}x tiebreak chance</span> : ""}
+            </div>
             <div className="col">{this.getActionDescription(this.props.rule)}</div>
           </div>
         </div>
