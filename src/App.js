@@ -30,15 +30,23 @@ class App extends Component {
               <RulesDisplay rules={KnowledgeBase.rules} />
             </div>
             <div className="col">
-              <VisitorData />
+              <div className="container">
+                <div className="row">
+                  <div className="col">
+                    <WebsiteOutput ads={this.state && this.state.selected ? this.state.selected : []} />
+                  </div>
+                </div>
+              <div className="row">
+                <div className="col">
+                  <VisitorData />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <Description />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <WebsiteOutput ads={this.state && this.state.selected ? this.state.selected : []} />
-            </div>
-            <div className="col">
-              <Description />
             </div>
           </div>
         </div>

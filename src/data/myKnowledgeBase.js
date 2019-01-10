@@ -12,7 +12,7 @@ rules = rules.concat(Categories.map(category => {
             category,
             upTo: 2
           },
-          tiebreakweight: category === "Sport" ? 2 : 1
+          tiebreakweight: category === "Sport" ? 3 : 1
         };
 }));
 
