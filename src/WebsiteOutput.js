@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import Advert from './Advert';
 
 class WebsiteOutput extends Component {
+  constructor(props) {
+    super(props);
+    this.recalculate = this.recalculate.bind(this);
+  }
+
+  recalculate(e) {
+    this.props.recalculate();
+  }
 
   getAdRow(ads) {
     return (<div className="row">
@@ -15,6 +23,9 @@ class WebsiteOutput extends Component {
         <div className="card-body container">
           { this.getAdRow(this.props.ads.slice(0,4)) }
           { this.getAdRow(this.props.ads.slice(4,8)) }
+          <div className="row">
+            <button onClick={this.recalculate}>Recalculate</button>
+          </div>
         </div>
       </div>
     );

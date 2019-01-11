@@ -14,7 +14,16 @@ import orchestrator from 'rule-based-system/orchestrator';
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.recalculate = this.recalculate.bind(this);
+  }
+
   componentDidMount() {
+    this.recalculate();
+  }
+
+  recalculate() {
     const currentAds = JSON.parse(JSON.stringify(Ads));
     const initialState = { pool: currentAds, selected: [] };
     orchestrator(initialState, KnowledgeBase, myActionLibrary, {tiebreaker})
@@ -33,7 +42,9 @@ class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col">
-                    <WebsiteOutput ads={this.state && this.state.selected ? this.state.selected : []} />
+                    <WebsiteOutput
+                        ads={this.state && this.state.selected ? this.state.selected : []}
+                        recalculate={this.recalculate} />
                   </div>
                 </div>
             {/* TODO - allow configuration of user information
