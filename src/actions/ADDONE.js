@@ -1,17 +1,25 @@
+import { SlotsAvailable, OneOfCategoryAvailable, BelowCategoryLimit } from './conditions';
+
 class AddOne {
   constructor(config) {
-    const defaults  = {
-      category: "Sport"
+    this.conditions = [
+      new SlotsAvailable(),
+      new OneOfCategoryAvailable(config.category),
+    ];
+
+    if (config.upTo) {
+      this.conditions.push(new BelowCategoryLimit(config.category, config.upTo));
     }
-    this.config = Object.assign(defaults, config);
+    this.config = config;
   }
   async canExecute(state) {
-
-    const upTo = this.config.upTo || state.numSlots;
-
-    return state.selected.length < state.numSlots
-      && state.selected.filter(ad => ad.categories.includes(this.config.category)).length < upTo
-      && state.pool.filter(ad => ad.categories.includes(this.config.category)).length;
+    // for loop rather than map/reduce so we can bail immediately on false
+    for (let i = 0; i < this.conditions.length; i++) {
+      if (!this.conditions[i].satisfied(state)) {
+        return false;
+      }
+    }
+    return true;
   }
   async execute(state) {
     const valid = state.pool.filter(ad => ad.categories.includes(this.config.category));
