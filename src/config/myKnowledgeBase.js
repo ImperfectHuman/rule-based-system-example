@@ -3,10 +3,27 @@ import { AddRandomFromCategory } from './steps';
 import Categories from './categories';
 
 var rules = [ ];
-
 let priority = 1;
 
-rules = rules.concat(Categories.map(category => {
+rules.push({
+        priority,
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new OneOfCategoryAvailable("SitePromo")
+          ],
+          steps: [
+            new AddRandomFromCategory("SitePromo")
+          ]
+        }
+      });
+
+priority++;
+
+const nonPromoCategories = Categories.filter(c => c !== "SitePromo");
+
+rules = rules.concat(nonPromoCategories.map(category => {
   return {
           priority,
           action: "ConfigDrivenAction",

@@ -6,15 +6,18 @@ function nextId() {
   return currentId;
 }
 
-var Ads = Categories.flatMap(category => Array.of(1,2,3).map(i => {
-    return {
-      label: `${category} Ad #${i}`,
-      id: nextId(),
-      categories: [ category ]
-    };
-  }));
+function getOneCategoryAd(category, i) {
+  return {
+    label: `${category} Ad #${i}`,
+    id: nextId(),
+    categories: [ category ]
+  };
+}
 
+const nonPromoCategories = Categories.filter(c => c !== "SitePromo");
 
+var Ads = nonPromoCategories.flatMap(category => Array.of(1,2,3).map(i => getOneCategoryAd(category,i)));
 
+Ads.push(getOneCategoryAd("SitePromo", 1));
 
 export default Ads;
