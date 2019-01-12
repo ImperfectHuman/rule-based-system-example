@@ -1,4 +1,8 @@
-import { SlotsAvailable, OneOfCategoryAvailable, BelowCategoryLimit } from './conditions';
+import {
+  SlotsAvailable,
+  OneOfCategoryAvailable,
+  BelowCategoryLimit,
+  WithinDailyTimeRange } from './conditions';
 import { AddRandomFromCategory } from './steps';
 import Categories from './categories';
 
@@ -18,6 +22,26 @@ rules.push({
           ]
         }
       });
+
+priority++;
+
+["Film", "Books"].forEach(category => {
+  rules.push({
+        priority,
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new OneOfCategoryAvailable(category),
+              new BelowCategoryLimit(category, 1),
+              new WithinDailyTimeRange("morning commute")
+          ],
+          steps: [
+            new AddRandomFromCategory(category)
+          ]
+        }
+      });
+});
 
 priority++;
 

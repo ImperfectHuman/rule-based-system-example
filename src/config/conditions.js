@@ -32,3 +32,13 @@ export class BelowCategoryLimit {
     return state.selected.filter(ad => ad.categories.includes(this.category)).length < this.limit;
   }
 }
+
+export class WithinDailyTimeRange {
+  constructor(period) {
+    this.label = `In the ${period} period`;
+    this.period = period;
+  }
+  satisfied(state) {
+    return state.period && state.period == this.period;
+  }
+}

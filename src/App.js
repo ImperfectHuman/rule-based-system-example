@@ -17,7 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.recalculate = this.recalculate.bind(this);
-    this.state = { numSlots: 9 , output: { }};
+    this.state = { numSlots: 9, output: { }};
   }
 
   componentDidMount() {
@@ -30,7 +30,12 @@ class App extends Component {
 
   recalculate() {
     const currentAds = JSON.parse(JSON.stringify(Ads));
-    const initialState = { numSlots: this.state.numSlots, pool: currentAds, selected: [] };
+    const initialState = {
+      numSlots: this.state.numSlots,
+      period: "morning commute",
+      pool: currentAds,
+      selected: []
+    };
     orchestrator(initialState, KnowledgeBase, myActionLibrary, {tiebreaker})
       .then(result => this.updateresults(result));
   }
