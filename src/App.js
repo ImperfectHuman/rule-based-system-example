@@ -6,9 +6,9 @@ import VisitorData from './VisitorData';
 import WebsiteOutput from './WebsiteOutput';
 import Description from './Description';
 
-import KnowledgeBase from './data/myKnowledgeBase';
-import myActionLibrary from './actions/myActionLibrary';
-import Ads from './data/ads';
+import KnowledgeBase from './config/myKnowledgeBase';
+import myActionLibrary from './config/myActionLibrary';
+import Ads from './config/ads';
 import tiebreaker from './tiebreaker';
 import orchestrator from 'rule-based-system/orchestrator';
 
