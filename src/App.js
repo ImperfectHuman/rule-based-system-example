@@ -17,17 +17,22 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.recalculate = this.recalculate.bind(this);
+    this.state = { numSlots: 8 , output: { }};
   }
 
   componentDidMount() {
     this.recalculate();
   }
 
+  updateresults(output) {
+    this.setState(Object.assign(this.state, {output}));
+  }
+
   recalculate() {
     const currentAds = JSON.parse(JSON.stringify(Ads));
-    const initialState = { pool: currentAds, selected: [] };
+    const initialState = { numSlots: this.state.numSlots, pool: currentAds, selected: [] };
     orchestrator(initialState, KnowledgeBase, myActionLibrary, {tiebreaker})
-      .then(result => this.setState(result));
+      .then(result => this.updateresults(result));
   }
 
   render() {
@@ -43,7 +48,8 @@ class App extends Component {
                 <div className="row">
                   <div className="col">
                     <WebsiteOutput
-                        ads={this.state && this.state.selected ? this.state.selected : []}
+                        ads={this.state.output.selected ? this.state.output.selected : []}
+                        numSlots={this.state.numSlots}
                         recalculate={this.recalculate} />
                   </div>
                 </div>

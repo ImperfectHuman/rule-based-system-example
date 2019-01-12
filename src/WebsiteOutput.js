@@ -11,20 +11,30 @@ class WebsiteOutput extends Component {
     this.props.recalculate();
   }
 
-  getAdRow(ads) {
-    return (<div className="row">
+  getAdRow(ads, rowIndex) {
+    return (<div className="row" key={rowIndex}>
               { ads.map(ad => (<div className="col" key={ad.id}><Advert ad={ad} /></div>)) }
             </div>);
   }
+
+  getAdRows() {
+    const rowLength = 4;
+    const toChunk = [...this.props.ads];
+    let rows = [];
+    while (toChunk.length) {
+      rows.push(toChunk.splice(0,rowLength));
+    }
+    return rows.map((r,i) => this.getAdRow(r,i));
+  }
+
   render() {
     return (
       <div className="WebsiteOutput card">
         <h3 className="card-title bg-primary text-white">Website Output</h3>
         <div className="card-body container">
-          { this.getAdRow(this.props.ads.slice(0,4)) }
-          { this.getAdRow(this.props.ads.slice(4,8)) }
+          { this.getAdRows() }
           <div className="row">
-            <button onClick={this.recalculate}>Recalculate</button>
+            <button className="btn btn-success" onClick={this.recalculate}>Recalculate</button>
           </div>
         </div>
       </div>
