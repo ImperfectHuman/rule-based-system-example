@@ -18,7 +18,7 @@ class WebsiteOutput extends Component {
   }
 
   getAdRows() {
-    const rowLength = 4;
+    const rowLength = 3;
     const toChunk = [...this.props.ads];
     let rows = [];
     while (toChunk.length) {

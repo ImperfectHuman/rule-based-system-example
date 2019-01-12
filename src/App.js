@@ -17,7 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.recalculate = this.recalculate.bind(this);
-    this.state = { numSlots: 8 , output: { }};
+    this.state = { numSlots: 9 , output: { }};
   }
 
   componentDidMount() {
