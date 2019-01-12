@@ -1,6 +1,7 @@
 import { SlotsAvailable, OneOfCategoryAvailable, BelowCategoryLimit } from './conditions';
+import { AddRandomFromCategory } from './steps';
 
-class AddOne {
+export default class AddOne {
   constructor(config) {
     this.conditions = [
       new SlotsAvailable(),
@@ -10,6 +11,10 @@ class AddOne {
     if (config.upTo) {
       this.conditions.push(new BelowCategoryLimit(config.category, config.upTo));
     }
+
+    this.steps = [
+      new AddRandomFromCategory(config.category)
+    ]
     this.config = config;
   }
   async canExecute(state) {
@@ -22,13 +27,6 @@ class AddOne {
     return true;
   }
   async execute(state) {
-    const valid = state.pool.filter(ad => ad.categories.includes(this.config.category));
-    const ad = valid[Math.floor(Math.random() * valid.length)];
-
-    state.pool.splice(state.pool.indexOf(ad),1);
-    state.selected.push(ad);
-    return state;
+    return this.steps.reduce((currentState, step) => step.execute(currentState), state);
   }
 }
-
-export default AddOne;

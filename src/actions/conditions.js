@@ -1,9 +1,14 @@
 export class SlotsAvailable {
-  constructor() {
-    this.label = "there are slots available"
+  constructor(atLeast = 1) {
+    if (atLeast > 1) {
+      this.label = `there are at least ${atLeast} slots available`;
+    } else {
+      this.label = `there are slots available`;
+    }
+    this.atLeast = atLeast;
   }
   satisfied(state) {
-    return state.selected.length < state.numSlots
+    return (state.selected.length + this.atLeast) <= state.numSlots
   }
 }
 
