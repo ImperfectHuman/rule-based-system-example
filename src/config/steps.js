@@ -4,7 +4,7 @@ function randomElement(array) {
 
 export class AddRandomFromCategory {
   constructor(category) {
-    this.label = `Add a random ${category} ad`;
+    this.label = `add a random ${category} ad`;
     this.category = category;
   }
   execute(state) {

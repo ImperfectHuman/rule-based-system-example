@@ -1,11 +1,8 @@
-// Because of how we're packaging, using the ActionLibrary.addActionsFromDir
-// convenience method.
-
 import ActionLibrary from 'rule-based-system/ActionLibrary';
 
-import AddOne from './ADDONE';
+import ConfigDrivenAction from './ConfigDrivenAction';
 
 const myActionLibrary = new ActionLibrary();
-myActionLibrary.addAction('ADDONE', AddOne);
+myActionLibrary.addAction('ConfigDrivenAction', ConfigDrivenAction);
 
 export default myActionLibrary;

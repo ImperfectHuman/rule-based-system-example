@@ -7,7 +7,18 @@ class RulesDisplay extends Component {
       <div className="RulesDisplay card">
         <h3 className="card-title bg-primary text-white">Rules</h3>
         <div className="card-body">
-          {this.props.rules.map((r,index) => (<Rule rule={r} key={index} />))}
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Conditions</th>
+                <th>Steps taken</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.rules.map((r,index) => (<Rule rule={r} key={index} />))}
+            </tbody>
+          </table>
         </div>
       </div>
     );
