@@ -8,7 +8,7 @@ import Description from './Description';
 
 import KnowledgeBase from './config/myKnowledgeBase';
 import myActionLibrary from './config/myActionLibrary';
-import Ads from './config/ads';
+import adsFactory from './config/ads';
 import tiebreaker from './tiebreaker';
 import orchestrator from 'rule-based-system/orchestrator';
 
@@ -16,28 +16,38 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.recalculate = this.recalculate.bind(this);
-    this.state = { numSlots: 9, output: { }};
+    this.state = {
+      numSlots: 9,
+      output: { },
+      config: {
+        includePromo: true
+      }
+    };
+    this.refresh = this.refresh.bind(this);
+    this.configChanged = this.configChanged.bind(this);
   }
 
   componentDidMount() {
-    this.recalculate();
+    // this.recalculate(this.state);
   }
 
-  updateresults(output) {
-    this.setState(Object.assign(this.state, {output}));
+  configChanged(config) {
+    this.recalculate(Object.assign(this.state, {config}));
   }
 
-  recalculate() {
-    const currentAds = JSON.parse(JSON.stringify(Ads));
-    const initialState = {
-      numSlots: this.state.numSlots,
+  refresh() {
+    this.recalculate(this.state);
+  }
+
+  recalculate(newState) {
+    const inputState = {
+      numSlots: newState.numSlots,
       period: "morning commute",
-      pool: currentAds,
+      pool: adsFactory(newState.config.includePromo),
       selected: []
     };
-    orchestrator(initialState, KnowledgeBase, myActionLibrary, {tiebreaker})
-      .then(result => this.updateresults(result));
+    orchestrator(inputState, KnowledgeBase, myActionLibrary, {tiebreaker})
+      .then(result => this.setState(Object.assign(newState, {output: result})));
   }
 
   render() {
@@ -55,16 +65,14 @@ class App extends Component {
                     <WebsiteOutput
                         ads={this.state.output.selected ? this.state.output.selected : []}
                         numSlots={this.state.numSlots}
-                        recalculate={this.recalculate} />
+                        refresh={this.refresh} />
                   </div>
                 </div>
-            {/* TODO - allow configuration of user information
               <div className="row">
                 <div className="col">
-                  <VisitorData />
+                  <VisitorData configChanged={this.configChanged} />
                 </div>
               </div>
-            */}
               <div className="row">
                 <div className="col">
                   <Description />

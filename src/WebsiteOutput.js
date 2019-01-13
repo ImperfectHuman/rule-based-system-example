@@ -8,7 +8,7 @@ class WebsiteOutput extends Component {
   }
 
   recalculate(e) {
-    this.props.recalculate();
+    this.props.refresh();
   }
 
   getAdRow(ads, rowIndex) {

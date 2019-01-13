@@ -39,6 +39,6 @@ export class WithinDailyTimeRange {
     this.period = period;
   }
   satisfied(state) {
-    return state.period && state.period == this.period;
+    return state.period && state.period === this.period;
   }
 }
