@@ -4,7 +4,6 @@ import {
   BelowCategoryLimit,
   WithinDailyTimeRange,
   ImpulseBuyAvailable,
-  NonImpulseBuyAvailable,
   BelowImpulseBuyLimit,
   AtImpulseBuyLimit,
   ExcessOfAdsAvailable,
@@ -23,7 +22,6 @@ import {
   SuppressRandomFromCategory,
   SuppressRandomImpulseBuy,
   AddRandomImpulseBuy,
-  SuppressRandomNonImpulseBuy,
   AddRandomGeographicallyCloseAd,
   SuppressRandomGeographicallyDistantAd,
   SuppressRandomGeographicallSpecifiedAd
