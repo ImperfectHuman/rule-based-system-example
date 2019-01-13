@@ -17,7 +17,7 @@ class Description extends Component {
             <li>When we have site-wide promotions they are strategically important for our brand</li>
             <li>Sport adverts are more profitable, and we want a bias towards displaying them.</li>
             <li>When we run out of more specific rules it's best to fill with adverts across a range of categories.</li>
-            <li>Morning commuters are impressionable but too alert to impulse buy, so advertise ideas (films, books)</li>
+            <li>Morning commuters are impressionable but too alert to impulse buy, so advertise ideas (films, books) and suppress impulse buy ads.</li>
             <li><span className="badge badge-secondary">TODO</span> Evening commuters are tired, and liable to impulse buy</li>
             <li><span className="badge badge-secondary">TODO</span> When we know about user interests, or needs (e.g. parents of young children), we should advertise on those ahead of other content to increase purchasing</li>
             <li><span className="badge badge-secondary">TODO</span> Use geographic data to provide information for local business</li>

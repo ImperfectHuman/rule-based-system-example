@@ -15,3 +15,15 @@ export class AddRandomFromCategory {
     return state;
   }
 }
+
+export class SuppressRandomImpulseBuy {
+  constructor() {
+    this.label = `suppress a random impulse buy ad`;
+  }
+  execute(state) {
+    const valid = state.pool.filter(ad => ad.impulseBuy);
+    const ad = randomElement(valid);
+    state.pool.splice(state.pool.indexOf(ad),1);
+    return state;
+  }
+}

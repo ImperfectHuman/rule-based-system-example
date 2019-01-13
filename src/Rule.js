@@ -2,19 +2,6 @@ import React, { Component } from 'react';
 
 class Rule extends Component {
 
-  getActionDescription(rule) {
-
-    let description = <div></div>;
-    if (rule.action === "ADDONE") {
-        description = <div>Add one advert from the <strong>{rule.actionConfig.category}</strong> category
-                   if one is available and there aren't already at
-                   least <strong>{rule.actionConfig.upTo}</strong> ads from that
-                   category present.</div>
-    }
-
-    return description;
-  }
-
   render() {
     const rule = this.props.rule;
     return (
@@ -36,6 +23,7 @@ class Rule extends Component {
       </tr>
     );
   }
+  
 }
 
 export default Rule;

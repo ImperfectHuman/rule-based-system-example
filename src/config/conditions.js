@@ -22,6 +22,24 @@ export class OneOfCategoryAvailable {
   }
 }
 
+export class ImpulseBuyAvailable {
+  constructor() {
+    this.label = `there is an impulse buy ad available`;
+  }
+  satisfied(state) {
+    return state.pool.filter(ad => ad.impulseBuy).length;
+  }
+}
+
+export class ExcessOfAdsAvailable {
+  constructor() {
+    this.label = `there are more ads available than are needed`;
+  }
+  satisfied(state) {
+    return (state.selected.length + state.pool.length) > state.numSlots;
+  }
+}
+
 export class BelowCategoryLimit {
   constructor(category, limit) {
     this.category = category;

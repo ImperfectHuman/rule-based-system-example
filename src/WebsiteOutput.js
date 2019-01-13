@@ -30,12 +30,9 @@ class WebsiteOutput extends Component {
   render() {
     return (
       <div className="WebsiteOutput card">
-        <h3 className="card-title bg-primary text-white">Website Output</h3>
+        <h3 className="card-title bg-primary text-white">Website Output <button className="btn btn-secondary" onClick={this.refresh}>Refresh results</button></h3>
         <div className="card-body container">
           { this.getAdRows() }
-          <div className="row">
-            <button className="btn btn-success" onClick={this.refresh}>Refresh results</button>
-          </div>
         </div>
       </div>
     );

@@ -8,17 +8,18 @@ function nextId() {
   return currentId;
 }
 
-function getOneCategoryAd(category, i) {
+function getOneCategoryAd(category, i, impulseBuy) {
   return {
     label: `${category} Ad #${i}`,
     id: nextId(),
-    categories: [ category ]
+    categories: [ category ],
+    impulseBuy
   };
 }
 
 
 export default function adsFactory(includePromo) {
-  let ads = nonPromoCategories.flatMap(category => Array.of(1,2,3).map(i => getOneCategoryAd(category,i)));
+  let ads = nonPromoCategories.flatMap(category => Array.of(1,2,3).map(i => getOneCategoryAd(category,i, i === 1)));
   if (includePromo) {
     ads.push(getOneCategoryAd("SitePromo", 1));
   }

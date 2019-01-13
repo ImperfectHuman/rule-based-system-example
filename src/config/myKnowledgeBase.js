@@ -2,8 +2,14 @@ import {
   SlotsAvailable,
   OneOfCategoryAvailable,
   BelowCategoryLimit,
-  WithinDailyTimeRange } from './conditions';
-import { AddRandomFromCategory } from './steps';
+  WithinDailyTimeRange,
+  ImpulseBuyAvailable,
+  ExcessOfAdsAvailable
+ } from './conditions';
+import {
+  AddRandomFromCategory,
+  SuppressRandomImpulseBuy
+} from './steps';
 import Categories from './categories';
 
 var rules = [ ];
@@ -42,6 +48,24 @@ priority++;
         }
       });
 });
+
+priority++;
+
+rules.push({
+        priority,
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new WithinDailyTimeRange("morning commute"),
+              new ImpulseBuyAvailable(),
+              new ExcessOfAdsAvailable()
+          ],
+          steps: [
+            new SuppressRandomImpulseBuy()
+          ]
+        }
+      });
 
 priority++;
 
