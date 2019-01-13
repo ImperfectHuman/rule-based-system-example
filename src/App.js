@@ -45,6 +45,7 @@ class App extends Component {
       numSlots: newState.numSlots,
       period: newState.config.period,
       isChild: newState.config.isChild,
+      location: newState.config.location,
       pool: adsFactory(newState.config.includePromo),
       selected: []
     };

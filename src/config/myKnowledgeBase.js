@@ -8,14 +8,22 @@ import {
   BelowImpulseBuyLimit,
   AboveImpulseBuyLimit,
   ExcessOfAdsAvailable,
-  IsChild
+  IsChild,
+  UserLocationKnown,
+  UserLocationUnknown,
+  GeographicallyCloseAdAvailable,
+  GeographicallyDistantAdAvailable,
+  GeographicallySpecifiedAdAvailable
  } from './conditions';
 import {
   AddRandomFromCategory,
   SuppressRandomFromCategory,
   SuppressRandomImpulseBuy,
   AddRandomImpulseBuy,
-  SuppressRandomNonImpulseBuy
+  SuppressRandomNonImpulseBuy,
+  AddRandomGeographicallyCloseAd,
+  SuppressRandomGeographicallyDistantAd,
+  SuppressRandomGeographicallSpecifiedAd
 } from './steps';
 import Categories from './categories';
 
@@ -55,6 +63,60 @@ rules.push({
           ]
         }
       });
+
+priority++;
+
+rules.push({
+        priority,
+        purpose: "Provide geographically close ads",
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new UserLocationKnown(),
+              new GeographicallyCloseAdAvailable()
+          ],
+          steps: [
+            new AddRandomGeographicallyCloseAd()
+          ]
+        }
+      });
+
+priority++;
+
+rules.push({
+        priority,
+        purpose: "Suppress geographically distant ads",
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new UserLocationKnown(),
+              new GeographicallyDistantAdAvailable()
+          ],
+          steps: [
+            new SuppressRandomGeographicallyDistantAd()
+          ]
+        }
+      });
+
+      priority++;
+
+      rules.push({
+              priority,
+              purpose: "Suppress geographically-tied ads when location is unknown",
+              action: "ConfigDrivenAction",
+              actionConfig: {
+                conditions: [
+                    new SlotsAvailable(),
+                    new UserLocationUnknown(),
+                    new GeographicallySpecifiedAdAvailable()
+                ],
+                steps: [
+                  new SuppressRandomGeographicallSpecifiedAd()
+                ]
+              }
+            });
 
 priority++;
 

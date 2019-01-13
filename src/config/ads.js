@@ -8,18 +8,24 @@ function nextId() {
   return currentId;
 }
 
-function getOneCategoryAd(category, i, impulseBuy) {
-  return {
+function getOneCategoryAd(category, i) {
+  let result = {
     label: `${category} Ad #${i}`,
     id: nextId(),
     categories: [ category ],
-    impulseBuy
+    impulseBuy: i === 1,
   };
+  if (i === 3) {
+    result.location = "London";
+  } else if (i === 4) {
+    result.location = "New York";
+  }
+  return result;
 }
 
 
 export default function adsFactory(includePromo) {
-  let ads = nonPromoCategories.flatMap(category => Array.of(1,2,3).map(i => getOneCategoryAd(category,i, i === 1)));
+  let ads = nonPromoCategories.flatMap(category => Array.of(1,2,3,4).map(i => getOneCategoryAd(category,i)));
   if (includePromo) {
     ads.push(getOneCategoryAd("SitePromo", 1));
   }

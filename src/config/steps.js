@@ -65,3 +65,40 @@ export class SuppressRandomNonImpulseBuy {
     return state;
   }
 }
+
+export class AddRandomGeographicallyCloseAd {
+  constructor() {
+    this.label = `add a random geographically close ad`;
+  }
+  execute(state) {
+    const valid = state.pool.filter(ad => ad.location && state.location === ad.location);
+    const ad = randomElement(valid);
+    state.pool.splice(state.pool.indexOf(ad),1);
+    state.selected.push(ad);
+    return state;
+  }
+}
+
+export class SuppressRandomGeographicallyDistantAd {
+  constructor() {
+    this.label = `Suppress a random geographically distant ad`;
+  }
+  execute(state) {
+    const valid = state.pool.filter(ad => ad.location && state.location !== ad.location);
+    const ad = randomElement(valid);
+    state.pool.splice(state.pool.indexOf(ad),1);
+    return state;
+  }
+}
+
+export class SuppressRandomGeographicallSpecifiedAd {
+  constructor() {
+    this.label = `Suppress a random geographically specified ad`;
+  }
+  execute(state) {
+    const valid = state.pool.filter(ad => ad.location);
+    const ad = randomElement(valid);
+    state.pool.splice(state.pool.indexOf(ad),1);
+    return state;
+  }
+}

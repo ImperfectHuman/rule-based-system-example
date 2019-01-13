@@ -5,6 +5,7 @@ class VisitorData extends Component {
     super(props);
     this.promoAvailable = this.promoAvailable.bind(this);
     this.timeChanged = this.timeChanged.bind(this);
+    this.locationChanged = this.locationChanged.bind(this);
     this.isChild = this.isChild.bind(this);
     this.state =  {
       includePromo: true,
@@ -26,6 +27,15 @@ class VisitorData extends Component {
   timeChanged(e) {
     const period = e.target.value;
     this.setState({period});
+  }
+
+  locationChanged(e) {
+    const location = e.target.value;
+    if (location !== "unknown") {
+      this.setState({location});
+    } else {
+      this.setState({location: undefined});
+    }
   }
 
   recalculate() {
@@ -66,6 +76,14 @@ class VisitorData extends Component {
               <tr className="border-top border-bottom">
                 <td><input type="checkbox" onChange={this.isChild} /></td>
                 <td>User identified as child</td>
+              </tr>
+              <tr className="border-top border-bottom">
+                <td><select value={this.state.location} onChange={this.locationChanged}>
+                  <option value="unknown">Unknown</option>
+                  <option value="London">London</option>
+                  <option value="New York">New York</option>
+                </select></td>
+              <td>Location</td>
               </tr>
             </tbody>
           </table>

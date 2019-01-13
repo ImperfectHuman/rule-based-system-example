@@ -98,3 +98,48 @@ export class IsChild {
     return state.isChild;
   }
 }
+
+export class UserLocationKnown {
+  constructor() {
+    this.label = `the user location is known`;
+  }
+  satisfied(state) {
+    return state.location;
+  }
+}
+
+export class UserLocationUnknown {
+  constructor() {
+    this.label = `the user location is not known`;
+  }
+  satisfied(state) {
+    return !state.location;
+  }
+}
+
+export class GeographicallyCloseAdAvailable {
+  constructor() {
+    this.label = `there are geographically close ads`;
+  }
+  satisfied(state) {
+    return state.pool.filter(ad => ad.location && state.location === ad.location).length;
+  }
+}
+
+export class GeographicallyDistantAdAvailable {
+  constructor() {
+    this.label = `there are geographically distant ads`;
+  }
+  satisfied(state) {
+    return state.pool.filter(ad => ad.location && state.location !== ad.location).length;
+  }
+}
+
+export class GeographicallySpecifiedAdAvailable {
+  constructor() {
+    this.label = `there are geographically specified ads`;
+  }
+  satisfied(state) {
+    return state.pool.filter(ad => ad.location).length;
+  }
+}
