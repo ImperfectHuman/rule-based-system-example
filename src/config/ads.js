@@ -13,7 +13,7 @@ function getOneCategoryAd(category, i) {
     label: `${category} Ad #${i}`,
     id: nextId(),
     categories: [ category ],
-    impulseBuy: i === 1,
+    impulseBuy: i === 1
   };
   if (i === 4) {
     result.location = "London";
@@ -27,12 +27,17 @@ function getOneCategoryAd(category, i) {
 export default function adsFactory(includePromo) {
   let ads = nonPromoCategories.flatMap(category => Array.of(1,2,3,4,5).map(i => getOneCategoryAd(category,i)));
   if (includePromo) {
-    ads.push(getOneCategoryAd("SitePromo", 1));
+    ads.push({
+      label: `SitePromo Ad #1`,
+      id: nextId(),
+      categories: [ "SitePromo" ],
+      impulseBuy: true
+    });
     ads.push({
       label: `SitePromo Adult Ad #1`,
       id: nextId(),
       categories: [ "SitePromo", "Adult" ],
-      impulseBuy: true,
+      impulseBuy: false
     });
   }
   return ads;
