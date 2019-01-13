@@ -13,7 +13,7 @@ class Rule extends Component {
         <td>
           {this.props.rule.purpose}
         </td>
-        <td>
+        <td className="border-left border-right">
           <ul>
             {this.props.rule.actionConfig.conditions.map((c,index) => <li key={index}>{c.label}</li>)}
           </ul>

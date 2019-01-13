@@ -60,30 +60,20 @@ class App extends Component {
         <div className="container">
           <div className="row">
             <div className="col">
-              <RulesDisplay rules={KnowledgeBase.rules} />
+              <WebsiteOutput
+                  ads={this.state.output.selected ? this.state.output.selected : []}
+                  numSlots={this.state.numSlots}
+                  refresh={this.refresh} />
             </div>
             <div className="col">
-              <div className="container">
-                <div className="row">
-                  <div className="col">
-                    <WebsiteOutput
-                        ads={this.state.output.selected ? this.state.output.selected : []}
-                        numSlots={this.state.numSlots}
-                        refresh={this.refresh} />
-                  </div>
-                </div>
-              <div className="row">
-                <div className="col">
-                  <VisitorData configChanged={this.configChanged} />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <Description />
-                </div>
-              </div>
+              <VisitorData configChanged={this.configChanged} />
             </div>
-            </div>
+          </div>
+          <div className="row">
+            <Description />
+          </div>
+          <div className="row">
+            <RulesDisplay rules={KnowledgeBase.rules} />
           </div>
         </div>
       </div>

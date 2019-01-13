@@ -71,7 +71,7 @@ priority++;
 
 rules.push({
         priority,
-        purpose: "Avoid over-saturating with geographically close ads",
+        purpose: "Avoid over-saturating of geographically close ads",
         action: "ConfigDrivenAction",
         actionConfig: {
           conditions: [
@@ -82,6 +82,23 @@ rules.push({
           ],
           steps: [
             new SuppressRandomGeographicallSpecifiedAd()
+          ]
+        }
+      });
+
+rules.push({
+        priority,
+        purpose: "Avoid over-saturation of impulse buy adverts",
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new ImpulseBuyAvailable(),
+              new AboveImpulseBuyLimit(3),
+              new ExcessOfAdsAvailable()
+          ],
+          steps: [
+            new SuppressRandomImpulseBuy()
           ]
         }
       });
@@ -194,12 +211,10 @@ rules.push({
         }
       });
 
-priority++;
-
 ["Film", "Books"].forEach(category => {
   rules.push({
         priority,
-        purpose: "Promote ideas (films, books) to morning commuters while they're impressionable",
+        purpose: "Promote ideas (films, books) to morning commuters",
         action: "ConfigDrivenAction",
         actionConfig: {
           conditions: [
@@ -214,26 +229,6 @@ priority++;
         }
       });
 });
-
-priority++;
-
-rules.push({
-        priority,
-        purpose: "Suppress too many impulse buy adverts while people are too aware to impulse buys",
-        action: "ConfigDrivenAction",
-        actionConfig: {
-          conditions: [
-              new SlotsAvailable(),
-              new WithinDailyTimeRange("morning commute"),
-              new ImpulseBuyAvailable(),
-              new AboveImpulseBuyLimit(1),
-              new ExcessOfAdsAvailable()
-          ],
-          steps: [
-            new SuppressRandomImpulseBuy()
-          ]
-        }
-      });
 
 priority++;
 
