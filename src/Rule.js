@@ -19,7 +19,7 @@ class Rule extends Component {
           </ul>
         </td>
         <td>
-          <ul className="list-unstyled">
+          <ul>
             {this.props.rule.actionConfig.steps.map((s,index) => <li key={index}>{s.label}</li>)}
           </ul>
         </td>

@@ -33,15 +33,15 @@ class Description extends Component {
           <p>We've supported the following logic in our rule set:</p>
           <ul>
             <li>
+              Suppress adverts that are inappopriate (e.g. Adult adverts should
+              be suppressed for children).
+            </li>
+            <li>
               When we have site-wide promotions they are strategically important
-              for our brand, so include them.
+              for our brand include them.
             </li>
             <li>
-              Suppress adverts that don't meet user interests or for other
-              reasons (e.g. Adult adverts should be suppressed for children).
-            </li>
-            <li>
-              Use geographic data to provide information for local business.
+              Use geographic data to provide advertising for local businesses.
             </li>
             <li>
               When we know about user interests, or needs (e.g. loving or hating
@@ -50,23 +50,23 @@ class Description extends Component {
             </li>
             <li>
               Morning commuters are impressionable but too alert to impulse buy,
-              so advertise ideas (films, books) and suppress impulse buy ads.
+              so advertise ideas (films, books) and limit impulse buy ads.
             </li>
             <li>
               Evening commuters are tired, and liable to impulse buy, so
-              suppress ads that aren't impulse buys.
+              promote impulse buy ads.
             </li>
             <li>
-              Sport adverts are more profitable, and we want a bias towards
-              displaying them.
+              Sport adverts are more profitable, so we want a bias towards
+              displaying them when making random selections.
             </li>
             <li>
               When we run out of more specific rules it's best to fill with
               adverts across a range of categories.
             </li>
             <li>
-              If we don't have a range of categories available, fill with
-              whatever we have.
+              If we don't have a range of adverts available, fill with
+              whatever we have left.
             </li>
           </ul>
           <p>
