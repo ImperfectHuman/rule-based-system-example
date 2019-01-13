@@ -11,7 +11,10 @@ class Rule extends Component {
           {rule.tiebreakweight && rule.tiebreakweight > 1 ? <span className="badge badge-info">{rule.tiebreakweight}x tiebreak chance</span> : ""}
         </td>
         <td>
-          <ul className="list-unstyled">
+          {this.props.rule.purpose}
+        </td>
+        <td>
+          <ul className="">
             {this.props.rule.actionConfig.conditions.map((c,index) => <li key={index}>{c.label}</li>)}
           </ul>
         </td>
@@ -23,7 +26,7 @@ class Rule extends Component {
       </tr>
     );
   }
-  
+
 }
 
 export default Rule;

@@ -22,6 +22,7 @@ let priority = 1;
 
 rules.push({
         priority,
+        purpose: "Provide site-wide promotions",
         action: "ConfigDrivenAction",
         actionConfig: {
           conditions: [
@@ -38,6 +39,7 @@ priority++;
 
 rules.push({
         priority,
+        purpose: "Promote impulse buys to evening commuters",
         action: "ConfigDrivenAction",
         actionConfig: {
           conditions: [
@@ -57,6 +59,7 @@ priority++;
 ["Film", "Books"].forEach(category => {
   rules.push({
         priority,
+        purpose: "Promote ideas (films, books) to morning commuters while they're impressionable",
         action: "ConfigDrivenAction",
         actionConfig: {
           conditions: [
@@ -76,6 +79,7 @@ priority++;
 
 rules.push({
         priority,
+        purpose: "Suppress impulse buy adverts while people are too aware to impulse buys",
         action: "ConfigDrivenAction",
         actionConfig: {
           conditions: [
@@ -98,6 +102,7 @@ const nonPromoCategories = Categories.filter(c => c !== "SitePromo");
 rules = rules.concat(nonPromoCategories.map(category => {
   return {
           priority,
+          purpose: "Fill randomly, with a bias towards the profitable sport category",
           action: "ConfigDrivenAction",
           actionConfig: {
             conditions: [

@@ -11,6 +11,7 @@ class RulesDisplay extends Component {
             <thead>
               <tr>
                 <th></th>
+                <th>Purpose</th>
                 <th>Conditions</th>
                 <th>Steps taken</th>
               </tr>
