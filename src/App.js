@@ -5,7 +5,7 @@ import RulesDisplay from './RulesDisplay';
 import VisitorData from './VisitorData';
 import WebsiteOutput from './WebsiteOutput';
 import Description from './Description';
-
+import AdList from './AdList';
 import KnowledgeBase from './config/myKnowledgeBase';
 import myActionLibrary from './config/myActionLibrary';
 import adsFactory from './config/ads';
@@ -41,17 +41,19 @@ class App extends Component {
   }
 
   recalculate(newState) {
+    let pool = adsFactory(newState.config.includePromo);
+    let poolCopy = JSON.parse(JSON.stringify(pool));
     const inputState = {
       numSlots: newState.numSlots,
       period: newState.config.period,
       isChild: newState.config.isChild,
       location: newState.config.location,
       feelings: newState.config.feelings,
-      pool: adsFactory(newState.config.includePromo),
+      pool,
       selected: []
     };
     orchestrator(inputState, KnowledgeBase, myActionLibrary, {tiebreaker})
-      .then(result => this.setState(Object.assign(newState, {output: result})));
+      .then(result => this.setState(Object.assign(newState, {output: result, adPool: poolCopy})));
   }
 
   render() {
@@ -74,6 +76,9 @@ class App extends Component {
           </div>
           <div className="row">
             <RulesDisplay rules={KnowledgeBase.rules} />
+          </div>
+          <div className="row">
+            <AdList ads={this.state.adPool} />
           </div>
         </div>
       </div>
