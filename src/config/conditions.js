@@ -59,13 +59,13 @@ export class BelowImpulseBuyLimit {
   }
 }
 
-export class AboveImpulseBuyLimit {
+export class AtImpulseBuyLimit {
   constructor(limit) {
     this.limit = limit;
-    this.label = `there are more than ${limit} impulse buy ads selected`;
+    this.label = `there are ${limit} or more impulse buy ads selected`;
   }
   satisfied(state) {
-    return state.selected.filter(ad => ad.impulseBuy).length > this.limit;
+    return state.selected.filter(ad => ad.impulseBuy).length >= this.limit;
   }
 }
 
@@ -144,13 +144,13 @@ export class GeographicallySpecifiedAdAvailable {
   }
 }
 
-export class AboveGeographicallySpecifiedLimit {
+export class AtGeographicallySpecifiedLimit {
   constructor(limit) {
     this.limit = limit;
-    this.label = `there are more than ${limit} geographcially-linked ads selected`;
+    this.label = `there are ${limit} or more geographcially-linked ads selected`;
   }
   satisfied(state) {
-    return state.selected.filter(ad => ad.location).length > this.limit;
+    return state.selected.filter(ad => ad.location).length >= this.limit;
   }
 }
 

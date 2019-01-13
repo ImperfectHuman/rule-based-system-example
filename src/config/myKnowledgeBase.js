@@ -6,7 +6,7 @@ import {
   ImpulseBuyAvailable,
   NonImpulseBuyAvailable,
   BelowImpulseBuyLimit,
-  AboveImpulseBuyLimit,
+  AtImpulseBuyLimit,
   ExcessOfAdsAvailable,
   IsChild,
   UserLocationKnown,
@@ -14,7 +14,7 @@ import {
   GeographicallyCloseAdAvailable,
   GeographicallyDistantAdAvailable,
   GeographicallySpecifiedAdAvailable,
-  AboveGeographicallySpecifiedLimit,
+  AtGeographicallySpecifiedLimit,
   UserHatesCategory,
   UserLovesCategory
  } from './conditions';
@@ -76,7 +76,7 @@ rules.push({
         actionConfig: {
           conditions: [
               new SlotsAvailable(),
-              new AboveGeographicallySpecifiedLimit(2),
+              new AtGeographicallySpecifiedLimit(2),
               new GeographicallySpecifiedAdAvailable(),
               new ExcessOfAdsAvailable()
           ],
@@ -94,7 +94,7 @@ rules.push({
           conditions: [
               new SlotsAvailable(),
               new ImpulseBuyAvailable(),
-              new AboveImpulseBuyLimit(3),
+              new AtImpulseBuyLimit(6),
               new ExcessOfAdsAvailable()
           ],
           steps: [
@@ -102,6 +102,23 @@ rules.push({
           ]
         }
       });
+
+rules.push({
+      priority,
+      purpose: "Avoid DIY if the user hates it",
+      action: "ConfigDrivenAction",
+      actionConfig: {
+        conditions: [
+            new SlotsAvailable(),
+            new UserHatesCategory("DIY"),
+            new ExcessOfAdsAvailable(),
+            new OneOfCategoryAvailable("DIY"),
+        ],
+        steps: [
+          new SuppressRandomFromCategory("DIY")
+        ]
+      }
+    });
 
 priority++;
 
@@ -174,24 +191,6 @@ rules.push({
       }
     });
 
-
-rules.push({
-      priority,
-      purpose: "Suppress DIY if the user hates it",
-      action: "ConfigDrivenAction",
-      actionConfig: {
-        conditions: [
-            new SlotsAvailable(),
-            new UserHatesCategory("DIY"),
-            new ExcessOfAdsAvailable(),
-            new OneOfCategoryAvailable("DIY"),
-        ],
-        steps: [
-          new SuppressRandomFromCategory("DIY")
-        ]
-      }
-    });
-
 priority++;
 
 rules.push({
@@ -203,7 +202,7 @@ rules.push({
               new SlotsAvailable(),
               new WithinDailyTimeRange("evening commute"),
               new ImpulseBuyAvailable(),
-              new BelowImpulseBuyLimit(3),
+              new BelowImpulseBuyLimit(5),
           ],
           steps: [
             new AddRandomImpulseBuy()

@@ -95,7 +95,7 @@ class VisitorData extends Component {
               <td>Location</td>
               </tr>
               <tr className="border-top border-bottom">
-                <td><select value={this.state.location} onChange={this.diyPreferenceChanged}>
+                <td><select value={this.state.feelings.DIY} onChange={this.diyPreferenceChanged}>
                   <option value="unknown">Unknown</option>
                   <option value="love">Loves DIY</option>
                   <option value="hate">Hates DIY</option>
