@@ -9,8 +9,8 @@ class VisitorData extends Component {
     this.isChild = this.isChild.bind(this);
     this.diyPreferenceChanged = this.diyPreferenceChanged.bind(this);
     this.state =  {
-      includePromo: true,
-      period: "morning commute",
+      includePromo: false,
+      period: "lunchtime",
       isChild: false,
       feelings: { }
     }
@@ -71,7 +71,7 @@ class VisitorData extends Component {
           <table>
             <tbody>
               <tr className="border-top border-bottom">
-                <td><input type="checkbox" defaultChecked onChange={this.promoAvailable} /></td>
+                <td><input type="checkbox" onChange={this.promoAvailable} /></td>
                 <td>Include site-wide promo</td>
               </tr>
               <tr className="border-top border-bottom">

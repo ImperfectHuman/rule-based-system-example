@@ -20,7 +20,7 @@ class App extends Component {
       numSlots: 9,
       output: { },
       config: {
-        includePromo: true,
+        includePromo: false,
         isChild: false
       }
     };
