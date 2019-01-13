@@ -4,11 +4,16 @@ import {
   BelowCategoryLimit,
   WithinDailyTimeRange,
   ImpulseBuyAvailable,
+  NonImpulseBuyAvailable,
+  BelowImpulseBuyLimit,
+  AboveImpulseBuyLimit,
   ExcessOfAdsAvailable
  } from './conditions';
 import {
   AddRandomFromCategory,
-  SuppressRandomImpulseBuy
+  SuppressRandomImpulseBuy,
+  AddRandomImpulseBuy,
+  SuppressRandomNonImpulseBuy
 } from './steps';
 import Categories from './categories';
 
@@ -25,6 +30,24 @@ rules.push({
           ],
           steps: [
             new AddRandomFromCategory("SitePromo")
+          ]
+        }
+      });
+
+priority++;
+
+rules.push({
+        priority,
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new WithinDailyTimeRange("evening commute"),
+              new ImpulseBuyAvailable(),
+              new BelowImpulseBuyLimit(3),
+          ],
+          steps: [
+            new AddRandomImpulseBuy()
           ]
         }
       });
@@ -59,6 +82,7 @@ rules.push({
               new SlotsAvailable(),
               new WithinDailyTimeRange("morning commute"),
               new ImpulseBuyAvailable(),
+              new AboveImpulseBuyLimit(1),
               new ExcessOfAdsAvailable()
           ],
           steps: [

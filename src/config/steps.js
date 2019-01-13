@@ -27,3 +27,28 @@ export class SuppressRandomImpulseBuy {
     return state;
   }
 }
+
+export class AddRandomImpulseBuy {
+  constructor(category) {
+    this.label = `add a random impulse buy ad`;
+    this.category = category;
+  }
+  execute(state) {
+    const valid = state.pool.filter(ad => ad.impulseBuy);
+    const ad = randomElement(valid);
+    state.pool.splice(state.pool.indexOf(ad),1);
+    state.selected.push(ad);
+    return state;
+  }
+}
+export class SuppressRandomNonImpulseBuy {
+  constructor() {
+    this.label = `suppress a random non-impulse-buy ad`;
+  }
+  execute(state) {
+    const valid = state.pool.filter(ad => !ad.impulseBuy);
+    const ad = randomElement(valid);
+    state.pool.splice(state.pool.indexOf(ad),1);
+    return state;
+  }
+}

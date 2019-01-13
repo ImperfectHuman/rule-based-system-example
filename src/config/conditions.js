@@ -31,12 +31,41 @@ export class ImpulseBuyAvailable {
   }
 }
 
+export class NonImpulseBuyAvailable {
+  constructor() {
+    this.label = `there is a non-impulse-buy ad available`;
+  }
+  satisfied(state) {
+    return state.pool.filter(ad => ad.impulseBuy).length;
+  }
+}
+
 export class ExcessOfAdsAvailable {
   constructor() {
     this.label = `there are more ads available than are needed`;
   }
   satisfied(state) {
     return (state.selected.length + state.pool.length) > state.numSlots;
+  }
+}
+
+export class BelowImpulseBuyLimit {
+  constructor(limit) {
+    this.limit = limit;
+    this.label = `there are fewer than ${limit} impulse buy ads selected`;
+  }
+  satisfied(state) {
+    return state.selected.filter(ad => ad.impulseBuy).length < this.limit;
+  }
+}
+
+export class AboveImpulseBuyLimit {
+  constructor(limit) {
+    this.limit = limit;
+    this.label = `there are more than ${limit} impulse buy ads selected`;
+  }
+  satisfied(state) {
+    return state.selected.filter(ad => ad.impulseBuy).length > this.limit;
   }
 }
 
