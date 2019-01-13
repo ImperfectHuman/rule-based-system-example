@@ -4,10 +4,10 @@ import Advert from './Advert';
 class WebsiteOutput extends Component {
   constructor(props) {
     super(props);
-    this.recalculate = this.recalculate.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
-  recalculate(e) {
+  refresh(e) {
     this.props.refresh();
   }
 
@@ -34,7 +34,7 @@ class WebsiteOutput extends Component {
         <div className="card-body container">
           { this.getAdRows() }
           <div className="row">
-            <button className="btn btn-success" onClick={this.recalculate}>Recalculate</button>
+            <button className="btn btn-success" onClick={this.refresh}>Refresh results</button>
           </div>
         </div>
       </div>
