@@ -89,3 +89,12 @@ export class WithinDailyTimeRange {
     return state.period && state.period === this.period;
   }
 }
+
+export class IsChild {
+  constructor(period) {
+    this.label = `User identified as a child`;
+  }
+  satisfied(state) {
+    return state.isChild;
+  }
+}

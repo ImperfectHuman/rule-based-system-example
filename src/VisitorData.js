@@ -5,15 +5,22 @@ class VisitorData extends Component {
     super(props);
     this.promoAvailable = this.promoAvailable.bind(this);
     this.timeChanged = this.timeChanged.bind(this);
+    this.isChild = this.isChild.bind(this);
     this.state =  {
       includePromo: true,
-      period: "morning commute"
+      period: "morning commute",
+      isChild: false
     }
   }
 
   promoAvailable(e) {
     const includePromo = e.target.checked;
     this.setState({includePromo});
+  }
+
+  isChild(e) {
+    const isChild = e.target.checked;
+    this.setState({isChild});
   }
 
   timeChanged(e) {
@@ -43,7 +50,7 @@ class VisitorData extends Component {
           <table>
             <tbody>
               <tr className="border-top border-bottom">
-                <td><input id="includePromo" type="checkbox" defaultChecked onChange={this.promoAvailable} /></td>
+                <td><input type="checkbox" defaultChecked onChange={this.promoAvailable} /></td>
                 <td>Include site-wide promo</td>
               </tr>
               <tr className="border-top border-bottom">
@@ -55,6 +62,10 @@ class VisitorData extends Component {
                   <option value="evening">Evening</option>
                 </select></td>
                 <td>Period</td>
+              </tr>
+              <tr className="border-top border-bottom">
+                <td><input type="checkbox" onChange={this.isChild} /></td>
+                <td>User identified as child</td>
               </tr>
             </tbody>
           </table>

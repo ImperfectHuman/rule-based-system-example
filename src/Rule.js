@@ -14,7 +14,7 @@ class Rule extends Component {
           {this.props.rule.purpose}
         </td>
         <td>
-          <ul className="">
+          <ul>
             {this.props.rule.actionConfig.conditions.map((c,index) => <li key={index}>{c.label}</li>)}
           </ul>
         </td>

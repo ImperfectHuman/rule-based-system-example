@@ -14,14 +14,15 @@ class Description extends Component {
             following logic:
           </p>
           <ul>
-            <li>When we have site-wide promotions they are strategically important for our brand</li>
+            <li>When we have site-wide promotions they are strategically important for our brand, so include them</li>
+            <li>Suppress adverts that don't meet user interests or for other reasons (e.g. Adult adverts should be suppressed for childtren)</li>
             <li>Morning commuters are impressionable but too alert to impulse buy, so advertise ideas (films, books) and suppress impulse buy ads.</li>
             <li>Evening commuters are tired, and liable to impulse buy, so suppress ads that aren't impulse buys.</li>
             <li>Sport adverts are more profitable, and we want a bias towards displaying them.</li>
             <li>When we run out of more specific rules it's best to fill with adverts across a range of categories.</li>
+            <li>If we don't have a range of categories available, fill with whatever we have.</li>
             <li><span className="badge badge-secondary">TODO</span> When we know about user interests, or needs (e.g. parents of young children), we should advertise on those ahead of other content to increase purchasing</li>
             <li><span className="badge badge-secondary">TODO</span> Use geographic data to provide information for local business</li>
-            <li><span className="badge badge-secondary">TODO</span> Suppress adverts that don't meet user interests.</li>
           </ul>
           <p>
             While you would probably want to provied an interface so that your

@@ -20,7 +20,8 @@ class App extends Component {
       numSlots: 9,
       output: { },
       config: {
-        includePromo: true
+        includePromo: true,
+        isChild: false
       }
     };
     this.refresh = this.refresh.bind(this);
@@ -43,6 +44,7 @@ class App extends Component {
     const inputState = {
       numSlots: newState.numSlots,
       period: newState.config.period,
+      isChild: newState.config.isChild,
       pool: adsFactory(newState.config.includePromo),
       selected: []
     };

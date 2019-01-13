@@ -7,10 +7,12 @@ import {
   NonImpulseBuyAvailable,
   BelowImpulseBuyLimit,
   AboveImpulseBuyLimit,
-  ExcessOfAdsAvailable
+  ExcessOfAdsAvailable,
+  IsChild
  } from './conditions';
 import {
   AddRandomFromCategory,
+  SuppressRandomFromCategory,
   SuppressRandomImpulseBuy,
   AddRandomImpulseBuy,
   SuppressRandomNonImpulseBuy
@@ -19,6 +21,25 @@ import Categories from './categories';
 
 var rules = [ ];
 let priority = 1;
+
+rules.push({
+        priority,
+        purpose: "Suppress Adult adverts for children",
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new IsChild(),
+              new ExcessOfAdsAvailable(),
+              new OneOfCategoryAvailable("Adult")
+          ],
+          steps: [
+            new SuppressRandomFromCategory("Adult")
+          ]
+        }
+      });
+
+priority++;
 
 rules.push({
         priority,
@@ -79,7 +100,7 @@ priority++;
 
 rules.push({
         priority,
-        purpose: "Suppress impulse buy adverts while people are too aware to impulse buys",
+        purpose: "Suppress too many impulse buy adverts while people are too aware to impulse buys",
         action: "ConfigDrivenAction",
         actionConfig: {
           conditions: [
@@ -102,13 +123,32 @@ const nonPromoCategories = Categories.filter(c => c !== "SitePromo");
 rules = rules.concat(nonPromoCategories.map(category => {
   return {
           priority,
-          purpose: "Fill randomly, with a bias towards the profitable sport category",
+          purpose: "Fill with a spread of content, with a bias towards the profitable sport category",
           action: "ConfigDrivenAction",
           actionConfig: {
             conditions: [
                 new SlotsAvailable(),
                 new OneOfCategoryAvailable(category),
                 new BelowCategoryLimit(category, 2)
+            ],
+            steps: [
+              new AddRandomFromCategory(category)
+            ]
+          },
+          tiebreakweight: category === "Sport" ? 3 : 1
+        };
+}));
+
+priority++;
+
+rules = rules.concat(nonPromoCategories.map(category => {
+  return {
+          priority,
+          purpose: "Fill randomly with any remaining ads, with a bias towards the profitable sport category",
+          action: "ConfigDrivenAction",
+          actionConfig: {
+            conditions: [
+                new SlotsAvailable(),
             ],
             steps: [
               new AddRandomFromCategory(category)
