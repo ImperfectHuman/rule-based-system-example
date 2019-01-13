@@ -42,7 +42,7 @@ class App extends Component {
   recalculate(newState) {
     const inputState = {
       numSlots: newState.numSlots,
-      period: "morning commute",
+      period: newState.config.period,
       pool: adsFactory(newState.config.includePromo),
       selected: []
     };
