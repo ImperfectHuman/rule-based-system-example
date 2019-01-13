@@ -65,11 +65,9 @@ class VisitorData extends Component {
               </tr>
               <tr className="border-top border-bottom">
                 <td><select value={this.state.period} onChange={this.timeChanged}>
-                  <option value="breakfast">Breakfast</option>
                   <option value="morning commute">Morning commute</option>
                   <option value="lunchtime">Lunchtime</option>
                   <option value="evening commute">Evening commute</option>
-                  <option value="evening">Evening</option>
                 </select></td>
                 <td>Period</td>
               </tr>

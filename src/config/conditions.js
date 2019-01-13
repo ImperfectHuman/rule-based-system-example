@@ -143,3 +143,13 @@ export class GeographicallySpecifiedAdAvailable {
     return state.pool.filter(ad => ad.location).length;
   }
 }
+
+export class AboveGeographicallySpecifiedLimit {
+  constructor(limit) {
+    this.limit = limit;
+    this.label = `there are more than ${limit} geographcially-linked ads selected`;
+  }
+  satisfied(state) {
+    return state.selected.filter(ad => ad.location).length > this.limit;
+  }
+}

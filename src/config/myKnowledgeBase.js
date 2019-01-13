@@ -13,7 +13,8 @@ import {
   UserLocationUnknown,
   GeographicallyCloseAdAvailable,
   GeographicallyDistantAdAvailable,
-  GeographicallySpecifiedAdAvailable
+  GeographicallySpecifiedAdAvailable,
+  AboveGeographicallySpecifiedLimit
  } from './conditions';
 import {
   AddRandomFromCategory,
@@ -68,6 +69,25 @@ priority++;
 
 rules.push({
         priority,
+        purpose: "Avoid over-saturating with geographically close ads",
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new AboveGeographicallySpecifiedLimit(2),
+              new GeographicallySpecifiedAdAvailable(),
+              new ExcessOfAdsAvailable()
+          ],
+          steps: [
+            new SuppressRandomGeographicallSpecifiedAd()
+          ]
+        }
+      });
+
+priority++;
+
+rules.push({
+        priority,
         purpose: "Provide geographically close ads",
         action: "ConfigDrivenAction",
         actionConfig: {
@@ -82,8 +102,6 @@ rules.push({
         }
       });
 
-priority++;
-
 rules.push({
         priority,
         purpose: "Suppress geographically distant ads",
@@ -92,6 +110,7 @@ rules.push({
           conditions: [
               new SlotsAvailable(),
               new UserLocationKnown(),
+              new ExcessOfAdsAvailable(),
               new GeographicallyDistantAdAvailable()
           ],
           steps: [
@@ -100,23 +119,22 @@ rules.push({
         }
       });
 
-      priority++;
-
-      rules.push({
-              priority,
-              purpose: "Suppress geographically-tied ads when location is unknown",
-              action: "ConfigDrivenAction",
-              actionConfig: {
-                conditions: [
-                    new SlotsAvailable(),
-                    new UserLocationUnknown(),
-                    new GeographicallySpecifiedAdAvailable()
-                ],
-                steps: [
-                  new SuppressRandomGeographicallSpecifiedAd()
-                ]
-              }
-            });
+rules.push({
+        priority,
+        purpose: "Suppress geographically-tied ads when location is unknown",
+        action: "ConfigDrivenAction",
+        actionConfig: {
+          conditions: [
+              new SlotsAvailable(),
+              new UserLocationUnknown(),
+              new ExcessOfAdsAvailable(),
+              new GeographicallySpecifiedAdAvailable()
+          ],
+          steps: [
+            new SuppressRandomGeographicallSpecifiedAd()
+          ]
+        }
+      });
 
 priority++;
 
