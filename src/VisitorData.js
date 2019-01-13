@@ -7,10 +7,12 @@ class VisitorData extends Component {
     this.timeChanged = this.timeChanged.bind(this);
     this.locationChanged = this.locationChanged.bind(this);
     this.isChild = this.isChild.bind(this);
+    this.diyPreferenceChanged = this.diyPreferenceChanged.bind(this);
     this.state =  {
       includePromo: true,
       period: "morning commute",
-      isChild: false
+      isChild: false,
+      feelings: { }
     }
   }
 
@@ -27,6 +29,15 @@ class VisitorData extends Component {
   timeChanged(e) {
     const period = e.target.value;
     this.setState({period});
+  }
+
+  diyPreferenceChanged(e) {
+    const DIY = e.target.value;
+    if (DIY === "unknown") {
+      this.setState({feelings: { }});
+    } else {
+      this.setState({feelings: { DIY }});
+    }
   }
 
   locationChanged(e) {
@@ -82,6 +93,14 @@ class VisitorData extends Component {
                   <option value="New York">New York</option>
                 </select></td>
               <td>Location</td>
+              </tr>
+              <tr className="border-top border-bottom">
+                <td><select value={this.state.location} onChange={this.diyPreferenceChanged}>
+                  <option value="unknown">Unknown</option>
+                  <option value="love">Loves DIY</option>
+                  <option value="hate">Hates DIY</option>
+                </select></td>
+              <td>How the user feels about DIY</td>
               </tr>
             </tbody>
           </table>

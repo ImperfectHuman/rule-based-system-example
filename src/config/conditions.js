@@ -153,3 +153,23 @@ export class AboveGeographicallySpecifiedLimit {
     return state.selected.filter(ad => ad.location).length > this.limit;
   }
 }
+
+export class UserHatesCategory {
+  constructor(category) {
+    this.category = category;
+    this.label = `the user hates ${category}`;
+  }
+  satisfied(state) {
+    return state.feelings && state.feelings[this.category] && state.feelings[this.category] === "hate";
+  }
+}
+
+export class UserLovesCategory {
+  constructor(category) {
+    this.category = category;
+    this.label = `the user loves ${category}`;
+  }
+  satisfied(state) {
+    return state.feelings && state.feelings[this.category] && state.feelings[this.category] === "love";
+  }
+}

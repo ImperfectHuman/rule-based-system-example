@@ -46,6 +46,7 @@ class App extends Component {
       period: newState.config.period,
       isChild: newState.config.isChild,
       location: newState.config.location,
+      feelings: newState.config.feelings,
       pool: adsFactory(newState.config.includePromo),
       selected: []
     };

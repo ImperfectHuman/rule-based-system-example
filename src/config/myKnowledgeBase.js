@@ -14,7 +14,9 @@ import {
   GeographicallyCloseAdAvailable,
   GeographicallyDistantAdAvailable,
   GeographicallySpecifiedAdAvailable,
-  AboveGeographicallySpecifiedLimit
+  AboveGeographicallySpecifiedLimit,
+  UserHatesCategory,
+  UserLovesCategory
  } from './conditions';
 import {
   AddRandomFromCategory,
@@ -135,6 +137,43 @@ rules.push({
           ]
         }
       });
+
+priority++;
+
+rules.push({
+      priority,
+      purpose: "Promote DIY if the user loves it",
+      action: "ConfigDrivenAction",
+      actionConfig: {
+        conditions: [
+            new SlotsAvailable(),
+            new UserLovesCategory("DIY"),
+            new OneOfCategoryAvailable("DIY"),
+            new BelowCategoryLimit("DIY", 3)
+        ],
+        steps: [
+          new AddRandomFromCategory("DIY")
+        ]
+      }
+    });
+
+
+rules.push({
+      priority,
+      purpose: "Suppress DIY if the user hates it",
+      action: "ConfigDrivenAction",
+      actionConfig: {
+        conditions: [
+            new SlotsAvailable(),
+            new UserHatesCategory("DIY"),
+            new ExcessOfAdsAvailable(),
+            new OneOfCategoryAvailable("DIY"),
+        ],
+        steps: [
+          new SuppressRandomFromCategory("DIY")
+        ]
+      }
+    });
 
 priority++;
 

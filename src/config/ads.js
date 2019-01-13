@@ -15,9 +15,9 @@ function getOneCategoryAd(category, i) {
     categories: [ category ],
     impulseBuy: i === 1,
   };
-  if (i === 3) {
+  if (i === 4) {
     result.location = "London";
-  } else if (i === 4) {
+  } else if (i === 5) {
     result.location = "New York";
   }
   return result;
@@ -25,7 +25,7 @@ function getOneCategoryAd(category, i) {
 
 
 export default function adsFactory(includePromo) {
-  let ads = nonPromoCategories.flatMap(category => Array.of(1,2,3,4).map(i => getOneCategoryAd(category,i)));
+  let ads = nonPromoCategories.flatMap(category => Array.of(1,2,3,4,5).map(i => getOneCategoryAd(category,i)));
   if (includePromo) {
     ads.push(getOneCategoryAd("SitePromo", 1));
     ads.push({
